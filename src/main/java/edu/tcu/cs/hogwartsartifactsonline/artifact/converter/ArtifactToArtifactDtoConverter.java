@@ -15,8 +15,6 @@ public class ArtifactToArtifactDtoConverter implements Converter<Artifact, Artif
         this.wizardToWizardDtoConverter = wizardToWizardDtoConverter;
     }
 
-
-
     @Override
     public ArtifactDto convert(Artifact source) {
         ArtifactDto artifactDto = new ArtifactDto(source.getId(),

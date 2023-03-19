@@ -19,6 +19,9 @@ public class Wizard implements Serializable {
     private String name;
 
     @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, mappedBy = "owner")
+    // This means that if I save one wizard in the DB using Wizard repo then all the artifacts
+    // associated with this wizard will be saved as well
+    // Thus we only need to save wizards
     private List<Artifact> artifacts = new ArrayList<>();
 
     // Constructors
@@ -26,7 +29,6 @@ public class Wizard implements Serializable {
     }
 
     // Getters and Setters
-
     public Integer getId() {
         return id;
     }
@@ -58,5 +60,15 @@ public class Wizard implements Serializable {
 
     public Integer getNumberOfArtifacts() {
         return this.artifacts.size();
+    }
+
+    public void removeArtifact(Artifact artifact) {
+        artifact.setOwner(null);
+        this.artifacts.remove(artifact);
+    }
+
+    public void removeAllArtifacts() {
+        this.artifacts.stream().forEach(artifact -> artifact.setOwner(null));
+        this.artifacts = null;
     }
 }
