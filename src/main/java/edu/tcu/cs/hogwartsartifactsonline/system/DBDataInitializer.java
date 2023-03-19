@@ -2,6 +2,8 @@ package edu.tcu.cs.hogwartsartifactsonline.system;
 
 import edu.tcu.cs.hogwartsartifactsonline.artifact.Artifact;
 import edu.tcu.cs.hogwartsartifactsonline.artifact.ArtifactRepository;
+import edu.tcu.cs.hogwartsartifactsonline.hogwartsuser.HogwartsUser;
+import edu.tcu.cs.hogwartsartifactsonline.hogwartsuser.UserRepository;
 import edu.tcu.cs.hogwartsartifactsonline.wizard.Wizard;
 import edu.tcu.cs.hogwartsartifactsonline.wizard.WizardRepository;
 import org.springframework.boot.CommandLineRunner;
@@ -12,16 +14,17 @@ public class DBDataInitializer implements CommandLineRunner {
 
     private final ArtifactRepository artifactRepository;
     private final WizardRepository wizardRepository;
-    //private final UserRepository userRepository;
+    private final UserRepository userRepository;
 
-    public DBDataInitializer(ArtifactRepository artifactRepository, WizardRepository wizardRepository) {
+    public DBDataInitializer(ArtifactRepository artifactRepository, WizardRepository wizardRepository, UserRepository userRepository) {
         this.artifactRepository = artifactRepository;
         this.wizardRepository = wizardRepository;
-        //  this.userRepository = userRepository;
+        this.userRepository = userRepository;
     }
 
     @Override
     public void run(String... args) throws Exception {
+        // Artifacts
         Artifact a1 = new Artifact();
         a1.setId("1250808601744904191");
         a1.setName("Deluminator");
@@ -58,6 +61,7 @@ public class DBDataInitializer implements CommandLineRunner {
         a6.setDescription("The Resurrection Stone allows the holder to bring back deceased loved ones, in a semi-physical form, and communicate with them.");
         a6.setImageUrl("ImageUrl");
 
+        // Wizards
         Wizard w1 = new Wizard();
         w1.setId(1);
         w1.setName("Albus Dumbledore");
@@ -79,13 +83,9 @@ public class DBDataInitializer implements CommandLineRunner {
         wizardRepository.save(w2);
         wizardRepository.save(w3);
 
-        // Since it wasn't saved, we have to save it separately
-        artifactRepository.save(a6);
+        artifactRepository.save(a6); // Since it wasn't saved, we have to save it separately
 
         // Users
-        /*
-
-        // Create some users.
         HogwartsUser u1 = new HogwartsUser();
         u1.setId(1);
         u1.setUsername("john");
@@ -110,7 +110,5 @@ public class DBDataInitializer implements CommandLineRunner {
         this.userRepository.save(u1);
         this.userRepository.save(u2);
         this.userRepository.save(u3);
-
-         */
     }
 }
