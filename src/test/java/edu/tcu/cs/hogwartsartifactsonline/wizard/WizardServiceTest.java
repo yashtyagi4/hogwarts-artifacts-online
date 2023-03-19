@@ -113,7 +113,7 @@ class WizardServiceTest {
 
         // Then: Expecting an exception
         assertThat(thrown)
-                .isInstanceOf(WizardNotFoundException.class)
+                .isInstanceOf(ObjectNotFoundException.class)
                 .hasMessage("Could not find wizard with Id 1 :(");
         verify(wizardRepository, times(1)).findById(Mockito.any(Integer.class));
     }
@@ -179,7 +179,7 @@ class WizardServiceTest {
         given(this.wizardRepository.findById(1)).willReturn(Optional.empty());
 
         // When
-        assertThrows(WizardNotFoundException.class, () -> {
+        assertThrows(ObjectNotFoundException.class, () -> {
             this.wizardService.update(1, update);
         });
 
@@ -210,7 +210,7 @@ class WizardServiceTest {
         given(this.wizardRepository.findById(1)).willReturn(Optional.empty());
 
         // When
-        assertThrows(WizardNotFoundException.class, () -> {
+        assertThrows(ObjectNotFoundException.class, () -> {
             this.wizardService.delete(1);
         });
 
@@ -265,13 +265,13 @@ class WizardServiceTest {
         given(this.wizardRepository.findById(3)).willReturn(Optional.empty());
 
         // When
-        Throwable thrown = assertThrows(WizardNotFoundException.class, () -> {
+        Throwable thrown = assertThrows(ObjectNotFoundException.class, () -> {
             this.wizardService.assignArtifact(3, "1250808601744904192");
         });
 
         // Then
         assertThat(thrown)
-                .isInstanceOf(WizardNotFoundException.class)
+                .isInstanceOf(ObjectNotFoundException.class)
                 .hasMessage("Could not find wizard with Id 3 :(");
         assertThat(a.getOwner().getId()).isEqualTo(2);
     }
@@ -282,13 +282,13 @@ class WizardServiceTest {
         given(this.artifactRepository.findById("1250808601744904192")).willReturn(Optional.empty());
 
         // When
-        Throwable thrown = assertThrows(ArtifactNotFoundException.class, () -> {
+        Throwable thrown = assertThrows(ObjectNotFoundException.class, () -> {
             this.wizardService.assignArtifact(3, "1250808601744904192");
         });
 
         // Then
         assertThat(thrown)
-                .isInstanceOf(ArtifactNotFoundException.class)
+                .isInstanceOf(ObjectNotFoundException.class)
                 .hasMessage("Could not find artifact with Id 1250808601744904192 :(");
     }
 }

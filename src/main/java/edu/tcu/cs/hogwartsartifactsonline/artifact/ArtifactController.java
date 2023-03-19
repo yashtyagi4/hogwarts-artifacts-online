@@ -13,7 +13,7 @@ import java.util.stream.Collectors;
 
 // Controller is responsible for catching the exception and packaging the exception in the result object
 @RestController
-@RequestMapping("/api/v1/artifacts")
+@RequestMapping("${api.endpoint.base-url}/artifacts")
 public class ArtifactController {
 
     private final ArtifactService artifactService;
